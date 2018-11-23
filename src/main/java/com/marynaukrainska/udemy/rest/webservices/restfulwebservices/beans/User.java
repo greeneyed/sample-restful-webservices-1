@@ -1,5 +1,6 @@
 package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.NoSuchElementException;
 
 @Component
 @ApiModel(description = "User details")
+//@JsonFilter("UserIdFilter")   //for now works only with FilteringController but not UserController
 public class User {
 
     private Integer id;
