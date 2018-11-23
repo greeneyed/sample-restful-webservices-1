@@ -1,5 +1,7 @@
 package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Past;
@@ -10,14 +12,17 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Component
+@ApiModel(description = "User details")
 public class User {
 
     private Integer id;
 
     @Size(min = 2)
+    @ApiModelProperty(notes = "Name should be at least 2 characters")
     private String name;
 
     @Past
+    @ApiModelProperty(notes = "Birth date should be in the past")
     private Date birthDate;
 
     private List<Post> posts = new ArrayList<>();
