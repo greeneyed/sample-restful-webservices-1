@@ -32,17 +32,7 @@ public class UserDao {
         return users;
     }
 
-    public User save(User user) {
-        if (user != null) {
-            if (user.getId() == null || user.getId() == 0) {
-                user.setId(users.size()+1);
-            }
-            users.add(user);
-        }
-        return user;
-    }
-
-    public User findOne(int id) throws NoSuchElementException {
+    public User findOne(long id) throws NoSuchElementException {
         return users
                 .stream()
                 .filter(user -> user.getId() == id)
@@ -50,19 +40,18 @@ public class UserDao {
                 .orElseThrow(() -> new NotFoundException("user id=" + id));
     }
 
-    public boolean deleteUser(int userId) {
+    public User save(User user) {
+        if (user != null) {
+            if (user.getId() == null || user.getId() == 0) {
+                user.setId(users.size()+1L);
+            }
+            users.add(user);
+        }
+        return user;
+    }
+
+    public boolean deleteUser(long userId) {
         return users.remove(findOne(userId));
     }
 
-    public List<Post> getAllPostsForUser(int userId) {
-        return findOne(userId).getPosts();
-    }
-
-    public Post savePostForUser(int userId, Post post) {
-        return findOne(userId).addPost(post);
-    }
-
-    public Post getPostForUserById(int userId, int postId) {
-        return findOne(userId).getPostById(postId);
-    }
 }

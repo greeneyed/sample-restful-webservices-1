@@ -1,47 +1,56 @@
 package com.greeneyed.samples.webservices.restfulwebservice.controller;
 
+import com.greeneyed.samples.webservices.restfulwebservice.dto.UserDto;
 import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
-import com.greeneyed.samples.webservices.restfulwebservice.entity.User;
-import com.greeneyed.samples.webservices.restfulwebservice.dao.UserDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.greeneyed.samples.webservices.restfulwebservice.mapper.UserMapper;
+import com.greeneyed.samples.webservices.restfulwebservice.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@RequiredArgsConstructor
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserDao userDao;
+    private final UserService userService;
+
+    private final UserMapper userMapper;
 
     @GetMapping(path = "/users")
-    public List<User> getAllUsers() {
-        return userDao.findAll();
+    public List<UserDto> getAllUsers() {
+        return userMapper.toDtoList(userService.getAllUsers());
     }
 
     @GetMapping(path = "/users/{id}", produces = "application/hal+json")
-    public Resource<User> getUserById(@PathVariable int id) {
-        User user = userDao.findOne(id);
-        Resource<User> resource = new Resource<>(user);
+    public Resource<UserDto> getUserById(@PathVariable long id) {
+        UserDto user = userMapper.toDto(userService.getUser(id));
+        Resource<UserDto> resource = new Resource<>(user);
         ControllerLinkBuilder allUsersLink = linkTo(methodOn(this.getClass()).getAllUsers());
         resource.add(allUsersLink.withRel("all-users"));
         return resource;
     }
 
     @PostMapping(path = "/users")
-    public ResponseEntity<Object> saveUser(@Valid @RequestBody User user) {
+    public ResponseEntity<Object> saveUser(@Valid @RequestBody UserDto user) {
         if (user == null) {
             return ResponseEntity.noContent().build();
         }
-        User savedUser = userDao.save(user);
+        UserDto savedUser = userMapper.toDto(userService.saveUser(userMapper.toEntity(user)));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -51,25 +60,25 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<Object> deleteUserById(@PathVariable int userId) {
-        if (!userDao.deleteUser(userId)) {
+    public ResponseEntity<Object> deleteUserById(@PathVariable long userId) {
+        if (!userService.deleteUser(userId)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(path = "/users/{userId}/posts")
-    public List<Post> getAllPostsForUser(@PathVariable int userId) {
-        return userDao.getAllPostsForUser(userId);
+    public List<Post> getAllPostsForUser(@PathVariable long userId) {
+        return userService.getAllPostsForUser(userId);
     }
 
     @PostMapping(path = "/users/{userId}/posts")
-    public ResponseEntity<Object> savePost(@PathVariable int userId, @RequestBody Post post) {
+    public ResponseEntity<Object> savePost(@PathVariable long userId, @RequestBody Post post) {
         System.out.println("USER ID: " + userId + " POST: " + post);
         if (post == null) {
             return ResponseEntity.noContent().build();
         }
-        Post savedPost = userDao.savePostForUser(userId, post);
+        Post savedPost = userService.savePostForUser(userId, post);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -79,7 +88,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/users/{userId}/posts/{postId}")
-    public Post getPostForUserById(@PathVariable int userId, @PathVariable int postId) {
-        return userDao.getPostForUserById(userId, postId);
+    public Post getPostForUserById(@PathVariable long userId, @PathVariable long postId) {
+        return userService.getPostForUserById(userId, postId);
     }
 }

@@ -18,7 +18,7 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
 
     private String title;
 
