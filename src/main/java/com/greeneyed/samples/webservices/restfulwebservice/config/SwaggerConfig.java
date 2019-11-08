@@ -1,4 +1,4 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices;
+package com.greeneyed.samples.webservices.restfulwebservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

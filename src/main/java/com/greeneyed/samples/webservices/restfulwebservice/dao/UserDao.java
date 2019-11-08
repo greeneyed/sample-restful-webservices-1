@@ -1,8 +1,8 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.dao;
+package com.greeneyed.samples.webservices.restfulwebservice.dao;
 
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.NotFoundException;
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans.Post;
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans.User;
+import com.greeneyed.samples.webservices.restfulwebservice.exception.NotFoundException;
+import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
+import com.greeneyed.samples.webservices.restfulwebservice.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

@@ -1,8 +1,8 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.controllers;
+package com.greeneyed.samples.webservices.restfulwebservice.controller;
 
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans.Post;
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans.User;
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.dao.UserDao;
+import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
+import com.greeneyed.samples.webservices.restfulwebservice.entity.User;
+import com.greeneyed.samples.webservices.restfulwebservice.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;

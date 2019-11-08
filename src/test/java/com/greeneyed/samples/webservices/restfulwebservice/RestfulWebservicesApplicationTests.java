@@ -1,4 +1,4 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices;
+package com.greeneyed.samples.webservices.restfulwebservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices;
+package com.greeneyed.samples.webservices.restfulwebservice.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -1,4 +1,4 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.versioning;
+package com.greeneyed.samples.webservices.restfulwebservice.versioning;
 
 public class PersonV2 {
     private String firstName;

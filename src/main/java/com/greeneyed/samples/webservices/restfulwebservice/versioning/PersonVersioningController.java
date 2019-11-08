@@ -1,4 +1,4 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.versioning;
+package com.greeneyed.samples.webservices.restfulwebservice.versioning;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

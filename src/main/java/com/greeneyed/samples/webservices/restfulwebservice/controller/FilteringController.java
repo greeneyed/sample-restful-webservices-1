@@ -1,9 +1,9 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.controllers;
+package com.greeneyed.samples.webservices.restfulwebservice.controller;
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans.User;
+import com.greeneyed.samples.webservices.restfulwebservice.entity.User;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

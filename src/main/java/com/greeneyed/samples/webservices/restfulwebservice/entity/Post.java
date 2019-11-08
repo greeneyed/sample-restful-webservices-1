@@ -1,15 +1,23 @@
-package com.marynaukrainska.udemy.rest.webservices.restfulwebservices.beans;
+package com.greeneyed.samples.webservices.restfulwebservice.entity;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
 @Component
+@Entity
 public class Post {
 
+    @Id
+    @GeneratedValue
     private int id;
 
     private String title;
 
     private String text;
+
+    @ManyToOne
+    private User user;
 
     public Post() {
     }
