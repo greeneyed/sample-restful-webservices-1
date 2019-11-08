@@ -1,11 +1,15 @@
 package com.greeneyed.samples.webservices.restfulwebservice.dao;
 
-import com.greeneyed.samples.webservices.restfulwebservice.exception.NotFoundException;
 import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
 import com.greeneyed.samples.webservices.restfulwebservice.entity.User;
+import com.greeneyed.samples.webservices.restfulwebservice.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Component
 public class UserDao {
@@ -13,15 +17,13 @@ public class UserDao {
     private static List<User> users = new ArrayList<>();
 
     static {
-        User amanda = new User(1, "Amanda", new Date());
-        amanda.addPost(new Post(11, "olala", "i'm fabulous!"));
-        amanda.addPost(new Post(22, "hello world", "why so serious?"));
+        User amanda = new User("Amanda", LocalDate.of(1987, 7, 18));
+        amanda.addPost(new Post("olala", "i'm fabulous!", LocalDateTime.now()));
+        amanda.addPost(new Post("hello world", "why so serious?", LocalDateTime.of(2007, 9, 30, 0 , 0)));
         users.add(amanda);
-        users.add(new User(2, "Helen", new Date()));
-        users.add(new User(3, "David", new Date()));
-        users.add(new User(4, "James", new Date()));
-
-
+        users.add(new User("Helen", LocalDate.of(1965, 2,22)));
+        users.add(new User("David", LocalDate.of(2006, 4, 14)));
+        users.add(new User("James", LocalDate.of(1996, 10, 18)));
     }
 
     public UserDao() {}

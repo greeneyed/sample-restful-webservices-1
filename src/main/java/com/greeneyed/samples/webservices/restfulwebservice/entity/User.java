@@ -2,20 +2,27 @@ package com.greeneyed.samples.webservices.restfulwebservice.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import org.springframework.stereotype.Component;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
-@Component
 @ApiModel(description = "User details")
+@Data
+@NoArgsConstructor
+@Component
 //@JsonFilter("UserIdFilter")   //for now works only with FilteringController but not UserController
 @Entity
 public class User {
@@ -26,50 +33,20 @@ public class User {
 
     @Size(min = 2)
     @ApiModelProperty(notes = "Name should be at least 2 characters")
-    private String name;
+    private String username;
 
     @Past
     @ApiModelProperty(notes = "Birth date should be in the past")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Post> posts = new ArrayList<>();
 
-    public User() {
-    }
-
-    public User(Integer id, String name, Date birthDate) {
-        this.id = id;
-        this.name = name;
+    public User(@Size(min = 2) String username, @Past LocalDate birthDate) {
+        this.username = username;
         this.birthDate = birthDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
     }
 
     public Post addPost(Post post) {
@@ -85,12 +62,4 @@ public class User {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthDate=" + birthDate +
-                '}';
-    }
 }

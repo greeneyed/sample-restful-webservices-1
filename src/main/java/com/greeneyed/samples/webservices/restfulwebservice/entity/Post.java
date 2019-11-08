@@ -1,10 +1,18 @@
 package com.greeneyed.samples.webservices.restfulwebservice.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Component
+@Data
+@NoArgsConstructor
 @Entity
 public class Post {
 
@@ -16,48 +24,17 @@ public class Post {
 
     private String text;
 
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
+
     @ManyToOne
     private User user;
 
-    public Post() {
-    }
-
-    public Post(int id, String title, String text) {
-        this.id = id;
+    public Post(String title, String text, LocalDateTime createDate) {
         this.title = title;
         this.text = text;
+        this.createDate = createDate;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                '}';
-    }
 }
