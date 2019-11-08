@@ -1,7 +1,8 @@
 package com.greeneyed.samples.webservices.restfulwebservice.controller;
 
+import com.greeneyed.samples.webservices.restfulwebservice.dto.PostDto;
 import com.greeneyed.samples.webservices.restfulwebservice.dto.UserDto;
-import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
+import com.greeneyed.samples.webservices.restfulwebservice.mapper.PostMapper;
 import com.greeneyed.samples.webservices.restfulwebservice.mapper.UserMapper;
 import com.greeneyed.samples.webservices.restfulwebservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+//import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
+
 @RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -30,6 +33,8 @@ public class UserController {
     private final UserService userService;
 
     private final UserMapper userMapper;
+
+    private final PostMapper postMapper;
 
     @GetMapping(path = "/users")
     public List<UserDto> getAllUsers() {
@@ -68,17 +73,17 @@ public class UserController {
     }
 
     @GetMapping(path = "/users/{userId}/posts")
-    public List<Post> getAllPostsForUser(@PathVariable long userId) {
-        return userService.getAllPostsForUser(userId);
+    public List<PostDto> getAllPostsForUser(@PathVariable long userId) {
+        return postMapper.toDtoList(userService.getAllPostsForUser(userId));
     }
 
     @PostMapping(path = "/users/{userId}/posts")
-    public ResponseEntity<Object> savePost(@PathVariable long userId, @RequestBody Post post) {
+    public ResponseEntity<Object> savePost(@PathVariable long userId, @RequestBody PostDto post) {
         System.out.println("USER ID: " + userId + " POST: " + post);
         if (post == null) {
             return ResponseEntity.noContent().build();
         }
-        Post savedPost = userService.savePostForUser(userId, post);
+        PostDto savedPost = postMapper.toDto(userService.savePostForUser(userId, postMapper.toEntity(post)));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -88,7 +93,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/users/{userId}/posts/{postId}")
-    public Post getPostForUserById(@PathVariable long userId, @PathVariable long postId) {
-        return userService.getPostForUserById(userId, postId);
+    public PostDto getPostForUserById(@PathVariable long userId, @PathVariable long postId) {
+        return postMapper.toDto(userService.getPostForUserById(userId, postId));
     }
 }
