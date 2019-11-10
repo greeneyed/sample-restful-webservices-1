@@ -20,9 +20,7 @@ public class Post {
     @GeneratedValue
     private long id;
 
-    private String title;
-
-    private String text;
+    private String message;
 
     private LocalDateTime createDate;
 
@@ -31,9 +29,8 @@ public class Post {
     @ManyToOne
     private User user;
 
-    public Post(String title, String text, LocalDateTime createDate) {
-        this.title = title;
-        this.text = text;
+    public Post(String message, LocalDateTime createDate) {
+        this.message = message;
         this.createDate = createDate;
     }
 

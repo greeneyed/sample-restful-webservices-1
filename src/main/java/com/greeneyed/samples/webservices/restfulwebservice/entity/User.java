@@ -28,6 +28,10 @@ public class User {
 
     private String username;
 
+    private String firstName;
+
+    private String lastName;
+
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "user")

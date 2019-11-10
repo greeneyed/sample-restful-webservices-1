@@ -1,6 +1,5 @@
 package com.greeneyed.samples.webservices.restfulwebservice.controller;
 
-import com.greeneyed.samples.webservices.restfulwebservice.dto.PostDto;
 import com.greeneyed.samples.webservices.restfulwebservice.dto.UserDto;
 import com.greeneyed.samples.webservices.restfulwebservice.mapper.PostMapper;
 import com.greeneyed.samples.webservices.restfulwebservice.mapper.UserMapper;
@@ -66,13 +65,11 @@ public class UserController {
 
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<Object> deleteUserById(@PathVariable long userId) {
-        if (!userService.deleteUser(userId)) {
-            return ResponseEntity.noContent().build();
-        }
+        userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(path = "/users/{userId}/posts")
+  /*  @GetMapping(path = "/users/{userId}/posts")
     public List<PostDto> getAllPostsForUser(@PathVariable long userId) {
         return postMapper.toDtoList(userService.getAllPostsForUser(userId));
     }
@@ -95,5 +92,5 @@ public class UserController {
     @GetMapping(path = "/users/{userId}/posts/{postId}")
     public PostDto getPostForUserById(@PathVariable long userId, @PathVariable long postId) {
         return postMapper.toDto(userService.getPostForUserById(userId, postId));
-    }
+    }*/
 }

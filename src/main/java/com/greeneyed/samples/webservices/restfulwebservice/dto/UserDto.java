@@ -24,6 +24,10 @@ public class UserDto {
     @Size(min = 2)
     private String username;
 
+    private String firstName;
+
+    private String lastName;
+
     @ApiModelProperty(notes = "Birth date should be in the past")
     @Past
     private LocalDate birthDate;

@@ -1,8 +1,8 @@
 package com.greeneyed.samples.webservices.restfulwebservice.service;
 
-import com.greeneyed.samples.webservices.restfulwebservice.dao.UserDao;
-import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
 import com.greeneyed.samples.webservices.restfulwebservice.entity.User;
+import com.greeneyed.samples.webservices.restfulwebservice.exception.NotFoundException;
+import com.greeneyed.samples.webservices.restfulwebservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,36 +12,22 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     public List<User> getAllUsers() {
-        return userDao.findAll();
+        return userRepository.findAll();
     }
 
     public User getUser(Long id) {
-        return userDao.findOne(id);
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("User with id %d was not found", id)));
     }
 
     public User saveUser(User user) {
-        return userDao.save(user);
+        return userRepository.save(user);
     }
 
-    public boolean deleteUser(Long id) {
-        return userDao.deleteUser(id);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
-
-    public List<Post> getAllPostsForUser(long userId) {
-        return userDao.findOne(userId).getPosts();
-    }
-
-    public Post savePostForUser(long userId, Post post) {
-        return userDao.findOne(userId).addPost(post);
-    }
-
-    public Post getPostForUserById(long userId, long postId) {
-        return userDao.findOne(userId).getPostById(postId);
-    }
-
-
 
 }

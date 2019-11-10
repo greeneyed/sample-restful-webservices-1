@@ -11,9 +11,7 @@ public class PostDto {
 
     private int id;
 
-    private String title;
-
-    private String text;
+    private String message;
 
     private LocalDateTime createDate;
 
