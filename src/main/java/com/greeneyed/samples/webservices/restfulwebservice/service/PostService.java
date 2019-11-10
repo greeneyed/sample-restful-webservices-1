@@ -14,7 +14,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<Post> getAllPostsForUser(long userId) {
+    public List<Post> getAllPostsByUserId(long userId) {
         return postRepository.findAllByUserId(userId);
     }
 

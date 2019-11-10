@@ -1,5 +1,6 @@
 package com.greeneyed.samples.webservices.restfulwebservice.controller;
 
+import com.greeneyed.samples.webservices.restfulwebservice.dto.PostDto;
 import com.greeneyed.samples.webservices.restfulwebservice.dto.UserDto;
 import com.greeneyed.samples.webservices.restfulwebservice.mapper.PostMapper;
 import com.greeneyed.samples.webservices.restfulwebservice.mapper.UserMapper;
@@ -22,8 +23,6 @@ import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-//import com.greeneyed.samples.webservices.restfulwebservice.entity.Post;
 
 @RequiredArgsConstructor
 @RestController
@@ -69,9 +68,15 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-  /*  @GetMapping(path = "/users/{userId}/posts")
+    @GetMapping(path = "/users/{userId}/posts")
     public List<PostDto> getAllPostsForUser(@PathVariable long userId) {
         return postMapper.toDtoList(userService.getAllPostsForUser(userId));
+    }
+
+    //TODO separate controller for posts
+    @GetMapping(path = "/users/{userId}/posts/{postId}")
+    public PostDto getPostForUserById(@PathVariable long userId, @PathVariable long postId) {
+        return postMapper.toDto(userService.getPostForUserById(userId, postId));
     }
 
     @PostMapping(path = "/users/{userId}/posts")
@@ -80,7 +85,7 @@ public class UserController {
         if (post == null) {
             return ResponseEntity.noContent().build();
         }
-        PostDto savedPost = postMapper.toDto(userService.savePostForUser(userId, postMapper.toEntity(post)));
+        PostDto savedPost = postMapper.toDto(userService.savePostForUser(postMapper.toEntity(post)));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -89,8 +94,4 @@ public class UserController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping(path = "/users/{userId}/posts/{postId}")
-    public PostDto getPostForUserById(@PathVariable long userId, @PathVariable long postId) {
-        return postMapper.toDto(userService.getPostForUserById(userId, postId));
-    }*/
 }

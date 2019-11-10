@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +16,6 @@ import java.util.NoSuchElementException;
 
 @Data
 @NoArgsConstructor
-@Component
-//@JsonFilter("UserIdFilter")   //for now works only with FilteringController but not UserController
 @Entity
 public class User {
 
