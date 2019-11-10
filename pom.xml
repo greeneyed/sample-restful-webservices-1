@@ -35,7 +35,7 @@
 		<db.dbname>project</db.dbname>
 		<db.username>user</db.username>
 		<db.password>passwd</db.password>
-		<db.url>jdbc:postgresql://${db.host}:${db.port}</db.url>
+		<db.url>jdbc:mysql://${db.host}:${db.port}</db.url>
 	</properties>
 
 	<dependencies>
